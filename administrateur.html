@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administration - Gestion des Étudiants</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="index.html">Accueil</a>
+            <a href="promotion.html">Promotion</a>
+            <a href="apropos.html">À propos</a>
+            <a href="administrateur.html">Administration</a>
+        </nav>
+    </header>
+
+    <section class="section">
+        <h2>Gestion des Étudiants</h2>
+        <div id="message"></div>
+
+        <div class="admin-panel">
+            <div class="panel">
+                <h3>Ajouter un Étudiant</h3>
+                <form id="add-form">
+                    <label for="nom">Nom:</label>
+                    <input type="text" id="nom" name="nom" required>
+                    
+                    <label for="prenom">Prénom:</label>
+                    <input type="text" id="prenom" name="prenom" required>
+                    
+                    <label for="promotion">Promotion:</label>
+                    <input type="text" id="promotion" name="promotion" required>
+                    
+                    <label for="specialite">Spécialité:</label>
+                    <input type="text" id="specialite" name="specialite" required>
+                    
+                    <label for="entreprise">Entreprise:</label>
+                    <input type="text" id="entreprise" name="entreprise" required>
+                    
+                    <button type="submit" class="btn">Ajouter</button>
+                </form>
+            </div>
+
+            <div class="panel">
+                <h3>Liste des Étudiants</h3>
+                <table id="students-table">
+                    <thead>
+                        <tr>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Promotion</th>
+                            <th>Spécialité</th>
+                            <th>Entreprise</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Students will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Site de l'école</p>
+    </footer>
+
+    <script>
+        function getStudents() {
+            return JSON.parse(localStorage.getItem('students')) || [
+                { id: 1, nom: 'MENGUE', prenom: 'alpha', promotion: '2026', specialite: 'developpeur web', entreprise: 'Bourse d\'excellence' },
+                { id: 2, nom: 'SEP', prenom: 'tresor', promotion: '2026', specialite: 'Ingénieur informatique', entreprise: 'Google France' },
+                { id: 3, nom: 'LYNA', prenom: 'raoul', promotion: '2026', specialite: 'Designer graphique', entreprise: 'Agence créative parisienne' },
+                { id: 4, nom: 'OTOGO', prenom: 'tresor', promotion: '2026', specialite: 'analyste data', entreprise: 'McKinsey & Company' }
+            ];
+        }
+
+        function saveStudents(students) {
+            localStorage.setItem('students', JSON.stringify(students));
+        }
+
+        function loadStudents() {
+            const students = getStudents();
+            const tbody = document.querySelector('#students-table tbody');
+            tbody.innerHTML = '';
+            students.forEach(student => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${student.nom}</td>
+                    <td>${student.prenom}</td>
+                    <td>${student.promotion}</td>
+                    <td>${student.specialite}</td>
+                    <td>${student.entreprise}</td>
+                    <td><button class="btn delete-btn" data-id="${student.id}">Supprimer</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function showMessage(msg) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = msg;
+            messageDiv.style.color = 'green';
+            setTimeout(() => messageDiv.textContent = '', 3000);
+        }
+
+        document.getElementById('add-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+            const newStudent = {
+                id: Date.now(),
+                nom: formData.get('nom'),
+                prenom: formData.get('prenom'),
+                promotion: formData.get('promotion'),
+                specialite: formData.get('specialite'),
+                entreprise: formData.get('entreprise')
+            };
+            const students = getStudents();
+            students.push(newStudent);
+            saveStudents(students);
+            loadStudents();
+            this.reset();
+            showMessage('Étudiant ajouté avec succès.');
+        });
+
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('delete-btn')) {
+                const id = parseInt(e.target.dataset.id);
+                if (confirm('Êtes-vous sûr de vouloir supprimer cet étudiant ?')) {
+                    const students = getStudents().filter(s => s.id !== id);
+                    saveStudents(students);
+                    loadStudents();
+                    showMessage('Étudiant supprimé avec succès.');
+                }
+            }
+        });
+
+        loadStudents();
+    </script>
+</body>
+</html>

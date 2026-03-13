@@ -1,0 +1,335 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --color-primary-dark: #0a1f44; /* bleu nuit */
+    --color-primary-light: #ffa500; /* orange */
+    --color-text: #333;
+    --color-muted: #666;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+/* Menu */
+header {
+    background: var(--color-primary-dark);
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+nav {
+    display: flex;
+    justify-content: center;
+    gap: 0;
+    padding: 15px 0;
+    flex-wrap: wrap;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 12px 25px;
+    transition: all 0.3s ease;
+    position: relative;
+    font-size: 16px;
+}
+
+nav a:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    transform: translateY(-2px);
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 3px;
+    background-color: var(--color-primary-light);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+nav a:hover::after {
+    width: 80%;
+}
+
+/* Hero accueil */
+.hero {
+    text-align: center;
+    padding: 100px 40px;
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-light) 100%);
+    color: white;
+    animation: slideIn 0.8s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hero h1 {
+    font-size: 48px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.hero p {
+    font-size: 20px;
+    margin-bottom: 30px;
+    opacity: 0.95;
+}
+
+/* Bouton */
+.btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 30px;
+    background-color: var(--color-primary-light);
+    color: var(--color-primary-dark);
+    text-decoration: none;
+    border-radius: 25px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(255, 165, 0, 0.4);
+    cursor: pointer;
+    border: none;
+}
+
+.btn:hover {
+    background-color: #ffb833;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(255, 165, 0, 0.6);
+}
+
+/* Sections */
+.section {
+    padding: 60px 40px;
+    background-color: white;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.section h2 {
+    color: var(--color-primary-dark);
+    font-size: 36px;
+    margin-bottom: 20px;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 4px;
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-light) 100%);
+    border-radius: 2px;
+}
+
+.section h3 {
+    color: #764ba2;
+    margin-top: 20px;
+    font-size: 22px;
+}
+
+/* Cards anciens élèves */
+.cards {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+}
+
+.card {
+    background: white;
+    border: none;
+    padding: 30px;
+    width: 250px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: var(--color-primary-light);
+}
+
+.card h3 {
+    color: #667eea;
+    margin-bottom: 10px;
+    font-size: 20px;
+}
+
+.card img.card-img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-bottom: 15px;
+    object-fit: cover;
+}
+
+.card p {
+    color: #666;
+    margin: 8px 0;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(10, 31, 68, 0.3);
+}
+
+/* Classes utilitaires */
+.section-intro {
+    margin-bottom: 30px;
+    font-size: 16px;
+}
+
+.card-subtitle {
+    font-size: 14px;
+    margin-top: 10px;
+    font-style: italic;
+    color: #888;
+}
+
+.values-text {
+    font-size: 18px;
+    margin-top: 15px;
+}
+
+/* Footer */
+footer {
+    background: var(--color-primary-dark);
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+    font-weight: 500;
+    box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    nav {
+        gap: 0;
+    }
+    
+    nav a {
+        padding: 10px 15px;
+        font-size: 14px;
+    }
+    
+    .hero {
+        padding: 60px 20px;
+    }
+    
+    .hero h1 {
+        font-size: 32px;
+    }
+    
+    .hero p {
+        font-size: 16px;
+    }
+    
+    .section {
+        padding: 40px 20px;
+        margin: 15px 10px;
+    }
+    
+    .card {
+        width: 90%;
+        max-width: 250px;
+    }
+}
+
+/* Admin Panel */
+.admin-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.panel {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.panel h3 {
+    color: var(--color-primary-dark);
+    margin-bottom: 20px;
+}
+
+.panel form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.panel label {
+    font-weight: 600;
+    color: var(--color-text);
+}
+
+.panel input {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.panel table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.panel th, .panel td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.panel th {
+    background-color: var(--color-primary-light);
+    color: var(--color-primary-dark);
+    font-weight: 600;
+}
+
+.panel .btn {
+    align-self: flex-start;
+}
